@@ -1,0 +1,32 @@
+---
+title: "PA1_template"
+author: "Warren Chanzit"
+date: "April 3, 2016"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+## Pre-Analysis set-up.
+### Import packages and set working directory.
+```{r}
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+```
+
+### Read and process data.
+```{r, echo = TRUE, results = "markup"}
+data <- read.csv("activity.csv")
+data$date <- as.Date(data$date)
+data2 <- na.omit(data)
+```
+
+## Calculate and plot total steps per day.
+```{r, echo = TRUE}
+daySteps <- with(data2, tapply(steps, date, sum))
+hist(daySteps,
+     breaks = 10,
+     xlab = "Steps",
+     main = "Daily Steps Taken")
+```
